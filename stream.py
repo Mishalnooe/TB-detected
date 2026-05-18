@@ -18,8 +18,8 @@ st.set_page_config(
     page_icon="🩺",
     layout="wide"
 )
-
-MODEL_PATH = r"C:/dataset/prediction/best.pt"
+import os
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "best.pt")
 DB_PATH = "tb_portal.db"
 
 # ================== DATABASE ==================
