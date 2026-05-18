@@ -1,7 +1,0 @@
-streamlit
-opencv-python-headless
-ultralytics
-numpy
-matplotlib
-reportlab
-pandas
