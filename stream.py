@@ -316,8 +316,12 @@ def signup_page():
 
 # ================== HOME PAGE ==================
 def home_page():
-
     st.markdown("""
+                <h1>Welcome to Home page</h1>
+                """, unsafe_allow_html=True)
+    st.write("")
+    if st.button("Introduction"):
+        st.markdown("""
     <div class='box'>
 
     <h2>AI TB Screening System</h2>
@@ -335,14 +339,6 @@ def home_page():
 
     </div>
     """, unsafe_allow_html=True)
-
-    st.write("")
-
-    if st.button("Start TB Detection"):
-
-        st.session_state.page = "prediction"
-
-        st.rerun()
 
 # ================== PDF REPORT ==================
 def generate_pdf(report_type):
