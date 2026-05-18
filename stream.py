@@ -411,7 +411,7 @@ def generate_pdf(report_type):
     return buffer
 # ================== PREDICTION PAGE ==================
 def project_page():
-
+    
     st.title("Prediction")
 
     uploaded_file = st.file_uploader(
@@ -483,26 +483,27 @@ def project_page():
             )
 
         # ---------- SAVE PREDICTION ----------
-        conn = sqlite3.connect(DB_PATH)
-        c = conn.cursor()
-
-        c.execute("""
-        INSERT INTO predictions (
-            username,
-            image_name,
-            prediction,
-            confidence
-        )
-        VALUES (?,?,?,?)
-        """, (
-            st.session_state.current_user,
-            uploaded_file.name,
-            class_name,
-            round(confidence*100,2)
-        ))
-
-        conn.commit()
-        conn.close()
+        if st.session_state.get("last_saved") != uploaded_file.name:
+            st.session_state.last_saved = uploaded_file.name
+            conn = sqlite3.connect(DB_PATH)
+            c = conn.cursor()
+            c.execute("""
+            INSERT INTO predictions (
+                username,
+                image_name,
+                prediction,
+                confidence
+            )
+            VALUES (?,?,?,?)
+            """, (
+                st.session_state.current_user,
+                uploaded_file.name,
+                class_name,
+                round(confidence*100,2)
+            ))
+            conn.commit()
+            conn.close()
+        
 
         # ---------- DISPLAY ----------
         col1, col2 = st.columns(2)
